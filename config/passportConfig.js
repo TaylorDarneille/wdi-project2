@@ -68,9 +68,7 @@ passport.use(new facebookStrategy({
 				defaults: {
 					facebookToken: accessToken,
 					email: facebookEmail,
-					firstname: usernameArr[0],
-					lastname: usernameArr[usernameArr.length -1],
-					username: profile.displayName
+					displayName: profile.displayName
 				}
 			}).spread(function(user, wasCreated){
 				if(wasCreated){

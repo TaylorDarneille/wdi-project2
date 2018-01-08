@@ -8,19 +8,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstname: {
-        type: Sequelize.STRING
-      },
-      lastname: {
-        type: Sequelize.STRING
-      },
-      username: {
+      displayName: {
         type: Sequelize.STRING
       },
       email: {
         type: Sequelize.STRING
       },
       password: {
+        type: Sequelize.STRING
+      },
+      facebookId: {
+        type: Sequelize.STRING
+      },
+      facebookToken: {
         type: Sequelize.STRING
       },
       createdAt: {

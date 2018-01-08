@@ -1,11 +1,8 @@
 'use strict';
 var bcrypt = require('bcrypt');
-
 module.exports = (sequelize, DataTypes) => {
   var user = sequelize.define('user', {
-    firstname: DataTypes.STRING,
-    lastname: DataTypes.STRING,
-    username: {
+    displayName: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -13,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         isEmail: {
-          msg: 'Invalid email anddress format'
-        }
-      }
+          msg: 'Invalid Email'
+        }//end of isEmail
+      }//end of validate
     },
     password: {
       type: DataTypes.STRING,
@@ -23,9 +20,9 @@ module.exports = (sequelize, DataTypes) => {
         len: {
           args: [6, 32],
           msg: 'Password must be between 6 and 32 characters long'
-        }
-      }
-    },
+        } //end of len
+      } //end of validate
+    }, //end of password
     facebookId: DataTypes.STRING,
     facebookToken: DataTypes.STRING
   }, {
@@ -53,7 +50,6 @@ module.exports = (sequelize, DataTypes) => {
     delete user.password;
     return user;
   }
-
 
   return user;
 };
