@@ -19,11 +19,13 @@ This is scraped from http://www.doc.wa.gov/corrections/incarceration/default.htm
 |  1  | Airway Heights Corrections Center | AHCC | prisons/ahcc.htm |
 
 ###Posts
+
 |  id  |    subject   |    content        |  userId  |  siteId |
 | ---- |:------------:| :----------------:| :-------:| :------:|
 |  1   | test subject | 	test content  |    4	 |		3  |
 
 ###Comments
+
 |  id  |    content   |   userId |	postId	|
 | ---- |:------------:| :-------:| :-------:|
 |  1   | test content |    4	 |		2	|
