@@ -1,3 +1,24 @@
+#NODE PACKAGES USED:
+- async
+- bcrypt
+- body-parser
+- cheerio
+- connect-flash
+- dotenv
+- ejs
+- express
+- express-ejs-layouts
+- express-session
+- passport
+- passport-facebook
+- passport-local
+- pg
+- pghstore
+- request
+- sequelize
+- [POSSIBLE] express-mailer
+
+
 #DATABASE: wdi-project2
 
 ##TABLES
@@ -10,7 +31,7 @@
 
 ###Sites
 
-This is scraped from http://www.doc.wa.gov/corrections/incarceration/default.htm using Cheerio.
+This is scraped from http://www.doc.wa.gov/corrections/incarceration/default.htm using Cheerio, plus a global (non specific) site row
 
 ![DOM img](WDC_DOM.png)
 
@@ -30,7 +51,7 @@ This is scraped from http://www.doc.wa.gov/corrections/incarceration/default.htm
 | ---- |:------------:| :-------:| :-------:|
 |  1   | test content |    4	 |		2	|
 
-###Categories
+###Topics
 
 |     id |  name     |
 | :----: |:---------:|
@@ -38,15 +59,9 @@ This is scraped from http://www.doc.wa.gov/corrections/incarceration/default.htm
 
 JOIN TABLES
 
-###usersSites
+###postsTopics
 
-| userId |  siteId   |
-| ------ |:---------:|
-|    1   |   test123 |
-
-###postsCategories
-
-| postId |  categoryId   |
+| postId |  topicId      |
 | ------ |:-------------:|
 |    1   |   99			 |
 
@@ -56,6 +71,28 @@ JOIN TABLES
 | :----: |:---------:|
 |    1   |  category |
 
+#ROUTES: 
+
+##Controllers:
+
+###Sites
+#### - Get / (list of sites)
+#### - Get /:id (list of posts for this site)
+
+
+###Posts
+#### - Post / (will create and post new post)
+#### - Get /new (will get new post page)
+#### - Get / (will get all posts)
+#### - Get /:id (will display one post)
+[there should be one more route that gets all posts with a specific site id AND topic]
+
+###Comments
+#### - Post / (will create and post new post)
+
+###Topics
+#### - Get / (list of topics)
+#### - Get /:id (list of posts with that topic)
 
 ###Stretch Goal: incorporate express-mailer
 
