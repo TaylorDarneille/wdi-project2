@@ -1,4 +1,6 @@
-##Database: wdi-project2
+#Database: wdi-project2
+
+##TABLES
 
 ###Users
 
@@ -17,5 +19,34 @@ This is scraped from http://www.doc.wa.gov/corrections/incarceration/default.htm
 |  1  | Airway Heights Corrections Center | AHCC | prisons/ahcc.htm |
 
 ###Posts
-|  id  | Subject | 
+|  id  |    subject   |    content        |  userId  |  siteId |
+| ---- |:------------:| :----------------:| :-------:| :------:|
+|  1   | test subject | 	test content  |    4	 |		3  |
+
+###Comments
+|  id  |    content   |   userId |	postId	|
+| ---- |:------------:| :-------:| :-------:|
+|  1   | test content |    4	 |		2	|
+
+###Categories
+
+|     id |  name     |
+| :----: |:---------:|
+|    1   |  category |
+
+JOIN TABLES
+
+###usersSites
+
+| userId |  siteId   |
+| ------ |:---------:|
+|    1   |   test123 |
+
+###postsCategories
+
+| postId |  categoryId   |
+| ------ |:-------------:|
+|    1   |   99			 |
+
+
 
