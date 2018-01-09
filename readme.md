@@ -1,4 +1,4 @@
-#Database: wdi-project2
+#DATABASE: wdi-project2
 
 ##TABLES
 
@@ -47,6 +47,15 @@ JOIN TABLES
 | postId |  categoryId   |
 | ------ |:-------------:|
 |    1   |   99			 |
+
+###usersPosts (this is so users can track posts)
+
+| userId |  postId   |
+| :----: |:---------:|
+|    1   |  category |
+
+
+###Stretch Goal: incorporate express-mailer
 
 
 
