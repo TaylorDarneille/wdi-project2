@@ -33,13 +33,20 @@ module.exports = (sequelize, DataTypes) => {
           pendingUser.password = hash; 
         }
       }
-    },
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
     }
+    // classMethods: {
+    //   associate: function(models) {
+    //     // associations can be defined here
+    //     models.user.belongsToMany(models.post, {through: "usersPosts"});
+    //     models.user.hasMany(models.comment);
+    //   }
+    // }
   });
+
+  user.associate = function (models) {
+    models.user.belongsToMany(models.post, {through: "usersPosts"});
+    models.user.hasMany(models.comment);
+  };
 
   user.prototype.isValidPassword = function(passwordTyped) {
     return bcrypt.compareSync(passwordTyped, this.password);

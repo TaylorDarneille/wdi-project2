@@ -18,7 +18,6 @@
 - sequelize
 - [POSSIBLE] express-mailer
 
-
 #DATABASE: wdi-project2
 
 ##TABLES
@@ -65,7 +64,7 @@ JOIN TABLES
 | ------ |:-------------:|
 |    1   |   99			 |
 
-###usersPosts (this is so users can track posts)
+###usersPosts (this is so users can track posts that they posted OR commented on)
 
 | userId |  postId   |
 | :----: |:---------:|
