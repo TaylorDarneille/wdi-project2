@@ -4,10 +4,11 @@ var router = express.Router();
 var db = require('../models');
 
 router.get('/', function(req, res){
+
 	db.post.findAll().then(function(posts){
-		res.render('posts/all.ejs', {posts: posts});
-	}).catch(function(error){
-		res.status(400).send('File Not Found: 404');
+		db.site.findAll().then(function(sites){
+			res.render('posts/all.ejs', {posts: posts, sites: sites});
+		});
 	});
 });
 
@@ -21,13 +22,18 @@ router.get('/new', function(req, res){
 
 router.get('/sites/:id', function(req, res){
 	db.post.findAll().then(function(posts){
+
 		var filteredPosts = [];
 		posts.forEach(function(post){
 			if(post.siteId==req.params.id){
 				filteredPosts.push(post);
 			}
 		});
-		res.render('posts/all.ejs', {posts: filteredPosts});
+
+		db.site.findAll().then(function(sites){
+			res.render('posts/all.ejs', {posts: filteredPosts, sites: sites});
+
+		});
 	});
 });
 

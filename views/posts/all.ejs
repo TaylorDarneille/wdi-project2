@@ -1,7 +1,27 @@
 <h2>List of all posts ever made!</h2>
 
-<% posts.forEach(function(post) { %>
-	<div class="well">
-		<h2><a href="/posts/<%=post.id%>"><%=post.subject%></a></h2>
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Filter by sites:
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+  	<% sites.forEach(function(site) { %>
+  		<li><a class="dropdown-item" href="/posts/sites/<%=site.id%>"><%=site.name%></a></li>
+    <% }); %>
+  </ul>
+</div>
+
+
+<% if(posts.length>0){ %>
+	<div>
+		<% posts.forEach(function(post) { %>
+			<div class="well">
+				<h2><a href="/posts/<%=post.id%>"><%=post.subject%></a></h2>
+			</div>
+		<% }); %>
 	</div>
-<% }); %>
+<%	} else { %>
+	<h2>No posts for this location yet!</h2>
+	<h3><a href="/posts/new">Click here</a> to write a new post.</h3>
+<% } %>

@@ -1,0 +1,10 @@
+<h2>All Available Tags</h2>
+<% if(topics.length>0) { %>
+	<% topics.forEach(function(t) { %>
+		<div>
+			<%= t.name %>
+		</div>
+	<% }); %>
+<% } else { %>
+	<h3>No Topics Yet!</h3>
+<% } %>
