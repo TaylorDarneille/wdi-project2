@@ -1,17 +1,36 @@
 <h2>List of all posts ever made!</h2>
 
-<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Filter by sites:
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-  	<% sites.forEach(function(site) { %>
-  		<li><a class="dropdown-item" href="/posts/sites/<%=site.id%>"><%=site.name%></a></li>
-    <% }); %>
-  </ul>
-</div>
+<form action="/posts" method="GET">
 
+	<div class="form-group">
+	  <label for="site">Sites:</label>
+	  <select class="form-control" name="siteId" id="site">
+	    <% sites.forEach(function(site) { %>
+	    	<% if(site.name === "All Sites") { %>
+	    		<option value="<%=site.id%>" selected="selected"><%= site.name %></option>
+	    	<% } else { %>
+	        	<option value="<%=site.id%>" ><%= site.name %></option>
+	        <% } %>
+	    <% }); %>
+	  </select>
+	</div>
+
+	<div class="form-group">
+	  <label for="topic">Topics:</label>
+	  <select class="form-control" name="topicId" id="topic" name="topic">
+	    <% topics.forEach(function(topic) { %>
+	    	<% if(topic.name === "All Topics") { %>
+	    		<option value="<%=topic.id%>" selected="selected"><%= topic.name %></option>
+	    	<% } else { %>
+	    		<option value="<%=topic.id%>" ><%= topic.name %></option>
+	        <% } %>	        
+	    <% }); %>
+	  </select>
+	</div>
+
+	<input type="submit" value="Search">
+
+</form>
 
 <% if(posts.length>0){ %>
 	<div>

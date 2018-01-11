@@ -2,37 +2,53 @@ var express = require('express');
 var async = require('async');
 var router = express.Router();
 var db = require('../models');
+var isLoggedIn = require('../middleware/isLoggedIn.js');
 
-router.get('/', function(req, res){
-
-	db.post.findAll().then(function(posts){
-		db.site.findAll().then(function(sites){
-			res.render('posts/all.ejs', {posts: posts, sites: sites});
-		});
-	});
-});
-
-router.get('/new', function(req, res){
+router.get('/new', isLoggedIn, function(req, res){
 	db.site.findAll().then(function(sites){
-		res.render('posts/new.ejs', {sites: sites});
+		res.render('posts/new.ejs', {sites: sites, user: req.user});
 	}).catch(function(error){
 		res.status(400).send('File Not Found: 404');
 	});
 });
 
-router.get('/sites/:id', function(req, res){
-	db.post.findAll().then(function(posts){
-
+router.get('/', function(req, res){
+	db.post.findAll({
+		include: [db.topic]
+	}).then(function(posts){
+		if(!req.query.siteId){
+			var searchedSite = "all";
+			var searchedTopic = "all";
+		} else {
+			var searchedSite = req.query.siteId;
+			var searchedTopic = parseInt(req.query.topicId);
+		}
 		var filteredPosts = [];
+
+
 		posts.forEach(function(post){
-			if(post.siteId==req.params.id){
+			var topicIds=[];
+			post.topics.forEach(function(topic){
+				topicIds.push(topic.id);
+			});
+			// console.log(topicIds.includes(searchedTopic), "//\/\/\/\/\/\/\/\/\/");///this equals what I think it will
+			if((post.siteId===searchedSite || searchedSite==="all") && 
+				(topicIds.includes(searchedTopic) || searchedTopic==="all")){
+				// console.log(post, "asjdlfalsdkfjalskdjfasdflkj");///this is never firing
 				filteredPosts.push(post);
 			}
+			console.log(filteredPosts, "&&&&&&&&&&&*&*&*&*&*&*&*&")//this is blank
+
 		});
 
 		db.site.findAll().then(function(sites){
-			res.render('posts/all.ejs', {posts: filteredPosts, sites: sites});
-
+			db.topic.findAll().then(function(topics){
+				console.log("About to Render!!!!!!!!!!!!!")
+				res.render('posts/all.ejs', {
+					posts: filteredPosts, 
+					sites: sites,
+					topics: topics});
+			});
 		});
 	});
 });
@@ -44,7 +60,6 @@ router.post('/', function(req, res){
 			res.redirect('/posts/'+createdPost.id);
 		}
 		else {
-
 			//load an array with each topic
 			var topics = req.body.topics.split(',');
 			//remove any whitespace elements form the array
@@ -84,8 +99,21 @@ router.post('/', function(req, res){
 }); //end of route
 
 router.get('/:id', function(req, res){
-	// TODO: find and display specific post
-	res.render('posts/single.ejs', {id: req.params.id});
+	db.post.find({
+		where: {id: req.params.id},
+		include: [db.site, db.topic, db.user, db.comment]
+	}).then(function(post){
+		db.user.find({
+			where: {id: post.userId}
+		}). then(function(user){
+			db.comment.findAll({
+				where: {postId: post.id},
+				include: [db.user]
+			}).then(function(comments){
+				res.render('posts/single.ejs', {post: post, author: user, user: req.user, comments: comments});
+			});
+		});
+	});
 });
 
 module.exports = router;

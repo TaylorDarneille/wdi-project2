@@ -54,7 +54,9 @@ var db = require("../models")
 
 router.get('/', function(req, res) {
 	// TODO
-  res.render('sites/list.ejs');
+	db.site.findAll().then(function(sites){
+		res.render('sites/list.ejs', {sites: sites});
+	});
 });
 
 router.get('/:id', function(req, res){

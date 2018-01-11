@@ -1,36 +1,37 @@
-<h2 class = "text-center"><%= post.subject %></h2>
+<h2><%= post.subject %></h2>
+<h3>Writen by <%= author.displayName %></h3>
+<h4><%=post.site.name%></h4>
 <p>
 	<%= post.content %>
 </p>
 <div>
 	<% post.topics.forEach(function(t){ %>
-		<a href="/topics/<%= t.id %>"><%= t.content %></a>
+		<a href="/posts/?siteId=all&topicId=<%=t.id%>>"><%= t.name %></a>
 	<% }); %>
 </div>
-
-<!-- <hr>
-<h3>Add Your Comments</h3>
-<form method="post" action="/comments">
-	<div class="form-group">
-		<label>Content</label>
-		<textarea class="form-control" name="content"></textarea>
-	</div>
-	<div class="form-group">
-		<label>Name</label>
-		<input class="form-control" type="text" placeholder="your name" name="name" required>
-		<input type="hidden" name="articleId" value="<%= result.id %>">
-	</div>
-	<input type="submit" class="btn btn-info">
-</form>
 <hr>
-<% if(result.comments && result.comments.length>0) {%>
+<% if(comments && comments.length>0) {%>
 	<h3>Previous Comments</h3>
-	<% result.comments.forEach(function(c){ %>
+	<% comments.forEach(function(c){ %>
 		<div>
+			<h5><%=c.user.displayName%></h5>
 			<p><%= c.content %> </p>
-			<em>- <%= c.name %> (<%= moment(c.createdAt).calendar()%>)</em>
 		</div>
 	<%});%>
-<%} else {%>
+<% } else {%>
 	<p>Be the first to comment on this article!</p>
-<%}%> -->
+<% } %>
+
+<% if (currentUser) { %>
+	<form method="post" action="/comments">
+		<div class="form-group">
+			<label>Content</label>
+			<textarea class="form-control" name="content"></textarea>
+		</div>
+		<input type="hidden" name="userId" value="<%=user.id%>">
+		<input type="hidden" name="postId" value="<%=post.id%>">
+		<input type="submit" class="btn btn-info">
+	</form>
+<%} else { %>
+	<a href="/auth/login">Log In</a> to comment on this post.
+<% } %>

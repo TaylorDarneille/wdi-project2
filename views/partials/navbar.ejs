@@ -14,12 +14,21 @@
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<% if (!currentUser){ %>
-				<li>
-					<a href="/auth/login">Login</a>
-				</li>
-				<li>
-					<a href="/auth/signup">Sign Up</a>
-				</li>
+					<li>
+						<a href="/sites">Sites</a>
+					</li>
+					<li>
+						<a href="/posts">Posts</a>
+					</li>
+					<li>
+						<a href="/topics">Topics</a>
+					</li>
+					<li>
+						<a href="/auth/login">Login</a>
+					</li>
+					<li>
+						<a href="/auth/signup">Sign Up</a>
+					</li>
 				<% } else { %>
 					<li>
 						<a href="/auth/logout">Logout</a>
