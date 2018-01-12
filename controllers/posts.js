@@ -112,6 +112,22 @@ router.get('/track', function(req, res){
 	});
 });
 
+router.get('/untrack', function(req, res){
+	var postId = req.query.postId;
+	var userId = req.query.userId;
+	db.user.findOne({
+		where: {id: userId}
+	}).then(function(user){
+		db.post.findOne({
+			where: {id: postId}
+		}).then(function(post){
+			user.removePost(post);
+			res.redirect('/posts/'+postId);
+		});
+	});
+});
+
+
 router.get('/:id', function(req, res){
 	var isTrackingAlready = false;
 	//console.log('USER ID:', req.user.id);

@@ -11,7 +11,7 @@
 </div>
 <% if(currentUser) { %>
 	<% if(isTracking) {%>
-		<a href="#">Stop Tracking this Post</a>
+		<a href="/posts/untrack?postId=<%=post.id%>&userId=<%=currentUser.id%>">Stop Tracking this Post</a>
 	<% } else { %>
 		<a href="/posts/track?postId=<%=post.id%>&userId=<%=currentUser.id%>">Track this post!</a>
 	<% } %>
