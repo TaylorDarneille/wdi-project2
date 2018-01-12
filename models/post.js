@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   var post = sequelize.define('post', {
     subject: DataTypes.STRING,
     content: DataTypes.TEXT,
-    userId: DataTypes.INTEGER,
+    authorId: DataTypes.INTEGER,
     siteId: DataTypes.INTEGER
   // }, {
   //   classMethods: {

@@ -33,11 +33,6 @@ var db = require("../models")
 //   	}
 // }
 
-// request("http://www.doc.wa.gov/corrections/incarceration/default.htm", function (error, response, data) {
-//   var $ = cheerio.load(data);
-//   var locations = $("a[href*='prisons']");
-//   logSites(locations);
-// });
 // db.site.findOrCreate({
 // 	where: {name: "All Sites"},
 // 	defaults: {
@@ -51,6 +46,12 @@ var db = require("../models")
 // 		console.log(newSite.abbreviation+" already exists in DB.");
 // 	}
 // }); //end of spread
+
+// request("http://www.doc.wa.gov/corrections/incarceration/default.htm", function (error, response, data) {
+//   var $ = cheerio.load(data);
+//   var locations = $("a[href*='prisons']");
+//   logSites(locations);
+// });
 
 router.get('/', function(req, res) {
 	// TODO

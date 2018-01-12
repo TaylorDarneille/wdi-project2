@@ -6,6 +6,7 @@ var isLoggedIn = require('../middleware/isLoggedIn.js');
 
 router.get('/new', isLoggedIn, function(req, res){
 	db.site.findAll().then(function(sites){
+		console.log(req.user.dataValues.id, "&&&&&");
 		res.render('posts/new.ejs', {sites: sites, user: req.user});
 	}).catch(function(error){
 		res.status(400).send('File Not Found: 404');
@@ -16,34 +17,29 @@ router.get('/', function(req, res){
 	db.post.findAll({
 		include: [db.topic]
 	}).then(function(posts){
-		if(!req.query.siteId){
-			var searchedSite = "all";
-			var searchedTopic = "all";
-		} else {
-			var searchedSite = req.query.siteId;
-			var searchedTopic = parseInt(req.query.topicId);
+		var searchedSite=1;
+		var searchedTopic=1;
+		var filteredPosts = []
+
+		if(req.query.siteId) {
+			searchedSite = parseInt(req.query.siteId);
+			searchedTopic = parseInt(req.query.topicId);
 		}
 		var filteredPosts = [];
-
-
 		posts.forEach(function(post){
 			var topicIds=[];
 			post.topics.forEach(function(topic){
 				topicIds.push(topic.id);
 			});
-			// console.log(topicIds.includes(searchedTopic), "//\/\/\/\/\/\/\/\/\/");///this equals what I think it will
-			if((post.siteId===searchedSite || searchedSite==="all") && 
-				(topicIds.includes(searchedTopic) || searchedTopic==="all")){
-				// console.log(post, "asjdlfalsdkfjalskdjfasdflkj");///this is never firing
+			if((post.siteId==searchedSite || searchedSite==1) && 
+				(topicIds.includes(searchedTopic) || searchedTopic==1)){
+				console.log(post, "asjdlfalsdkfjalskdjfasdflkj");///this is never firing
 				filteredPosts.push(post);
 			}
-			console.log(filteredPosts, "&&&&&&&&&&&*&*&*&*&*&*&*&")//this is blank
-
 		});
 
 		db.site.findAll().then(function(sites){
 			db.topic.findAll().then(function(topics){
-				console.log("About to Render!!!!!!!!!!!!!")
 				res.render('posts/all.ejs', {
 					posts: filteredPosts, 
 					sites: sites,
@@ -55,6 +51,10 @@ router.get('/', function(req, res){
 
 router.post('/', function(req, res){
 	db.post.create(req.body).then(function(createdPost){
+
+		db.user.findById(createdPost.authorId).then(function(user){
+			createdPost.addUser(user)});
+
 		if(!req.body.topics){
 			console.log("no topics added")
 			res.redirect('/posts/'+createdPost.id);
@@ -90,7 +90,6 @@ router.post('/', function(req, res){
 				res.redirect('/posts/'+createdPost.id);
 			});//end of async.forEach
 		}//end of else
-
 	}) //end of .then
 	.catch(function(err){
 		console.log("err: ", err);
@@ -98,19 +97,42 @@ router.post('/', function(req, res){
 	});//end of catch
 }); //end of route
 
+router.get('/track', function(req, res){
+	var postId = req.query.postId;
+	var userId = req.query.userId;
+	db.user.findOne({
+		where: {id: userId}
+	}).then(function(user){
+		db.post.findOne({
+			where: {id: postId}
+		}).then(function(post){
+			user.addPost(post);
+			res.redirect('/posts/'+postId);
+		});
+	});
+});
+
 router.get('/:id', function(req, res){
+	var isTrackingAlready = false;
+	//console.log('USER ID:', req.user.id);
 	db.post.find({
 		where: {id: req.params.id},
-		include: [db.site, db.topic, db.user, db.comment]
+		include: [db.site, db.topic, db.comment, db.user]
 	}).then(function(post){
-		db.user.find({
-			where: {id: post.userId}
-		}). then(function(user){
+		db.user.findOne({
+			where: {id: post.authorId}
+		}).then(function(user){
 			db.comment.findAll({
 				where: {postId: post.id},
 				include: [db.user]
 			}).then(function(comments){
-				res.render('posts/single.ejs', {post: post, author: user, user: req.user, comments: comments});
+				if(req.user) {
+					var userIds = post.users.map(function(u){
+						return u.id;
+					});
+					isTrackingAlready = userIds.indexOf(req.user.id) !== -1;
+				}
+				res.render('posts/single.ejs', {post: post, author: user, comments: comments, isTracking: isTrackingAlready});
 			});
 		});
 	});

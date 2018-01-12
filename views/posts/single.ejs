@@ -6,9 +6,19 @@
 </p>
 <div>
 	<% post.topics.forEach(function(t){ %>
-		<a href="/posts/?siteId=all&topicId=<%=t.id%>>"><%= t.name %></a>
+		<a href="/posts/?siteId=1&topicId=<%=t.id%>"><%= t.name %></a>
 	<% }); %>
 </div>
+<% if(currentUser) { %>
+	<% if(isTracking) {%>
+		<a href="#">Stop Tracking this Post</a>
+	<% } else { %>
+		<a href="/posts/track?postId=<%=post.id%>&userId=<%=currentUser.id%>">Track this post!</a>
+	<% } %>
+<% } else { %>
+	<a href="/auth/login">Log in to track this post!</a>
+<% } %>
+
 <hr>
 <% if(comments && comments.length>0) {%>
 	<h3>Previous Comments</h3>
@@ -28,7 +38,7 @@
 			<label>Content</label>
 			<textarea class="form-control" name="content"></textarea>
 		</div>
-		<input type="hidden" name="userId" value="<%=user.id%>">
+		<input type="hidden" name="userId" value="<%=currentUser.id%>">
 		<input type="hidden" name="postId" value="<%=post.id%>">
 		<input type="submit" class="btn btn-info">
 	</form>
