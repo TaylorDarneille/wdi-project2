@@ -2,13 +2,23 @@ var express = require('express');
 var passport = require('../config/passportConfig');
 var db = require('../models');
 var router = express.Router();
+var isLoggedIn = require('../middleware/isLoggedIn.js');
+
+router.get('/profile', isLoggedIn, function(req, res){
+	db.user.findOne({
+		where: {id: req.user.id},
+		include: [db.post]
+	}).then(function(user){
+		res.render('./profile.ejs', {trackedPosts: user.posts});
+	});
+});
 
 router.get('/login', function(req, res){
 	res.render('auth/login.ejs');
 });
 
 router.post('/login', passport.authenticate('local', {
-	successRedirect: '/profile',
+	successRedirect: '/auth/profile',
 	successFlash: 'Login Successful!',
 	failureRedirect: '/auth/login',
 	failureFlash: 'Invalid Credentials'
@@ -30,7 +40,7 @@ router.post('/signup', function(req, res, next){
 		if(wasCreated) {
 			//Good job, you didn't try to make a duplicate!
 			passport.authenticate('local', {
-				successRedirect: '/profile',
+				successRedirect: '/auth/profile',
 				successFlash: 'Successfully Logged In'
 			})(req, res, next);
 		}
@@ -60,7 +70,7 @@ router.get('/facebook', passport.authenticate('facebook', {
 
 //Handle the response from Facebook (logic located in passport config)
 router.get('/callback/facebook', passport.authenticate('facebook', {
-	successRedirect: '/profile',
+	successRedirect: '/auth/profile',
 	successFlash: 'You successfully logged in via Facebook',
 	failureRedurect: '/auth/login',
 	failureFlash: 'You tried to login with FB, but FB doesn\'t like you'

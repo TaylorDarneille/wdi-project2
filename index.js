@@ -26,11 +26,7 @@ app.use(function(req, res, next){
 });
 
 app.get('/', function(req, res){
-	res.render('home.ejs');
-});
-
-app.get('/profile', isLoggedIn, function(req, res){
-	res.render('profile.ejs');
+	res.render('auth/login.ejs', );
 });
 
 app.use('/auth', require('./controllers/auth'));

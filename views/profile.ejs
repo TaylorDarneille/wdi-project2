@@ -7,4 +7,9 @@
 </div>
 <div>
 	<h3>Posts I'm Following</h3>
+	<ul>
+		<% trackedPosts.forEach(function(post){ %>
+			<li><a href="/posts/<%=post.id%>"><%=post.subject%></a></li>
+		<% }); %>
+	</ul>
 </div>
