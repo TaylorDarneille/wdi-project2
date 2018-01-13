@@ -25,6 +25,10 @@ app.use(function(req, res, next){
 	next();
 });
 
+app.get('/privacy', function(req, res){
+	res.render('privacy.ejs', );
+});
+
 app.get('/', function(req, res){
 	res.render('auth/login.ejs', );
 });
