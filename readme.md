@@ -22,6 +22,10 @@
 
 #### Phil's daughter recently moved to the Mission Creek Corrections Center for Women and on their last visit, mentioned that some of the girls in her quad go to coding classes. She wants to join but is shy and doesn't feel comfortable asking the CO's about it. Phil can't find any helpful information on MCCCW's website so he turns to this forum.
 
+#### Jane's husband resides at Washington State Penitentiary. His first visitation is coming up and their two kiddos want to visit him, but Jane is weary of what they may see and doesn't know if it would be appropriate to bring them. Jane chats with other parents on the forum to get a better sense of what the norm is and whether she will bring the little ones on this first visit.
+
+#### Melly's brother was just moved to Olympic Corrections Center which is a 2hr bus ride away. She wants to visit him, but she has work the same day as visitation and can't risk missing the bus back or running into a public transportation delay. She chats with other families that drive to OCC to set up a carpool routine.
+
 #DATABASE: wdi-project2
 
 ##TABLES
