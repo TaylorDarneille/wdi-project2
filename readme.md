@@ -18,6 +18,10 @@
 - sequelize
 - [POSSIBLE] express-mailer
 
+#User Stories
+
+#### Phil's daughter recently moved to the Mission Creek Corrections Center for Women and on their last visit, mentioned that some of the girls in her quad go to coding classes. She wants to join but is shy and doesn't feel comfortable asking the CO's about it. Phil can't find any helpful information on MCCCW's website so he turns to this forum.
+
 #DATABASE: wdi-project2
 
 ##TABLES
@@ -97,6 +101,23 @@ JOIN TABLES
 ###Topics
 #### - Get / (list of topics)
 #### - Get /:id (list of posts with that topic)
+
+# Unfulfilled reqs:
+
+#### - Wireframes
+#### - Styling
+
+# TODO
+
+#### - update put route and corresponding code to allow users to add/delete/edit topics and also change the site
+#### - When a user deletes a post, also delete comments from database and all topics that aren't linked to any other posts.
+#### - Implement direct messaging functionality by adding another table "dms"
+#### - Utilize moment to display when each post was first written
+#### - Add "lastUpdate" column to posts table to keep track of the most recent comment or update to post, then utilize it to display posts in order of updates.
+#### - Notifications:
++ Add a notifications number on navbar that shows up when logged in. 
++ Links to posts on dashboards bold (by adding a class) when updated/commented and unbold (remove class) when they are clicked on (event listener).
++ Have front end count number of bold links to calculate notifications number.
 
 ###Stretch Goal: incorporate express-mailer
 

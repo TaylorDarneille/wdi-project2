@@ -148,7 +148,6 @@ router.put('/:id', function(req, res){
 
 router.get('/:id', function(req, res){
 	var isTrackingAlready = false;
-	//console.log('USER ID:', req.user.id);
 	db.post.find({
 		where: {id: req.params.id},
 		include: [db.site, db.topic, db.comment, db.user]
