@@ -52,9 +52,6 @@ router.get('/', function(req, res){
 router.post('/', function(req, res){
 	db.post.create(req.body).then(function(createdPost){
 
-		db.user.findById(createdPost.authorId).then(function(user){
-			createdPost.addUser(user)});
-
 		if(!req.body.topics){
 			console.log("no topics added")
 			res.redirect('/posts/'+createdPost.id);
@@ -127,6 +124,27 @@ router.get('/untrack', function(req, res){
 	});
 });
 
+router.get('/edit/:id', function(req, res){
+	db.post.findOne({
+		where: {id: req.params.id}
+	}).then(function(post){
+		res.render('posts/edit.ejs', { post: post });
+	});
+	// TODO: allow user to edit topics as well
+});
+
+router.put('/:id', function(req, res){
+	console.log("!!!!!!!!!!!!!!");
+	db.post.findOne({
+		where: {id: req.params.id}
+	}).then(function(post){
+		post.subject = req.body.subject;
+		post.content = req.body.content;
+		post.save();
+	}).then(function(updatedPost){
+		res.send("Post was updated!");
+	});
+});
 
 router.get('/:id', function(req, res){
 	var isTrackingAlready = false;
@@ -151,6 +169,23 @@ router.get('/:id', function(req, res){
 				res.render('posts/single.ejs', {post: post, author: user, comments: comments, isTracking: isTrackingAlready});
 			});
 		});
+	});
+});
+
+
+router.delete('/:id', function(req, res) {
+	console.log('@@@@@@@@@@@Delete route ID = ', req.params.id);
+	// TODO: delete all comments for this post
+	// TODO: delete all topics that aren't linked to any other post
+
+	db.post.destroy({
+		where : { id: req.params.id }
+	}).then(function(deleted){
+		console.log("deleted!!!!!!!!!!!!!!!!!!!!!!: "+deleted);
+		res.send('success');
+	}).catch(function(err) {
+		console.log('An error happened', err);
+		res.send('fail');
 	});
 });
 

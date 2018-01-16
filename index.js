@@ -24,6 +24,7 @@ app.use(function(req, res, next){
 	res.locals.alerts = req.flash();
 	next();
 });
+app.use(express.static(__dirname + '/public/'));
 
 app.get('/privacy', function(req, res){
 	res.render('privacy.ejs', );

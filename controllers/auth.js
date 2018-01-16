@@ -9,7 +9,11 @@ router.get('/profile', isLoggedIn, function(req, res){
 		where: {id: req.user.id},
 		include: [db.post]
 	}).then(function(user){
-		res.render('./profile.ejs', {trackedPosts: user.posts});
+		db.post.findAll({
+			where: {authorId: req.user.id}
+		}).then(function(posts){
+			res.render('./profile.ejs', {trackedPosts: user.posts, authoredPosts: posts});
+		});
 	});
 });
 

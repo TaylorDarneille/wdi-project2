@@ -4,12 +4,29 @@
 </div>
 <div>
 	<h3>Posts I Wrote</h3>
+
+	<% if(authoredPosts && authoredPosts.length>0) { %>
+		<ul>
+			<% authoredPosts.forEach(function(post){ %>
+				<li>
+					<a href="/posts/<%=post.id%>"><%=post.subject%></a> 
+				</li>
+			<% }); %>
+		</ul>
+	<% } else { %>
+		<a href="/posts/new">Click here</a> to write your first post!
+	<% } %>
 </div>
 <div>
 	<h3>Posts I'm Following</h3>
-	<ul>
-		<% trackedPosts.forEach(function(post){ %>
-			<li><a href="/posts/<%=post.id%>"><%=post.subject%></a></li>
-		<% }); %>
-	</ul>
+
+	<% if(trackedPosts && trackedPosts.length>0) { %>
+		<ul>
+			<% trackedPosts.forEach(function(post){ %>
+				<li><a href="/posts/<%=post.id%>"><%=post.subject%></a></li>
+			<% }); %>
+		</ul>
+	<% } else { %>
+		You aren't tracking any posts yet!
+	<% } %>
 </div>

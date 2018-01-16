@@ -9,14 +9,22 @@
 		<a href="/posts/?siteId=1&topicId=<%=t.id%>"><%= t.name %></a>
 	<% }); %>
 </div>
+
 <% if(currentUser) { %>
-	<% if(isTracking) {%>
-		<a href="/posts/untrack?postId=<%=post.id%>&userId=<%=currentUser.id%>">Stop Tracking this Post</a>
+
+	<% if(currentUser.id === post.authorId) { %>
+			<a href="/posts/edit/<%= post.id %>">Edit Post</a>
+			<a href="/posts/<%= post.id %>" class="delete-link">Delete Post</a>
+	<% } else if (isTracking) { %>
+			<a href="/posts/untrack?postId=<%=post.id%>&userId=<%=currentUser.id%>">Stop Tracking this Post</a>
 	<% } else { %>
-		<a href="/posts/track?postId=<%=post.id%>&userId=<%=currentUser.id%>">Track this post!</a>
+			<a href="/posts/track?postId=<%=post.id%>&userId=<%=currentUser.id%>">Track this post!</a>
 	<% } %>
+
 <% } else { %>
+
 	<a href="/auth/login">Log in to track this post!</a>
+	
 <% } %>
 
 <hr>

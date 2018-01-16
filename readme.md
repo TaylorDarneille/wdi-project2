@@ -28,7 +28,7 @@
 | --- |:-----------:| :----------------:| :-------:|
 | 1   | test Users  | test@testuser.com | test123  |
 
-###Sites
+###Sites*
 
 This is scraped from http://www.doc.wa.gov/corrections/incarceration/default.htm using Cheerio, plus a global (non specific) site row
 
@@ -38,9 +38,10 @@ This is scraped from http://www.doc.wa.gov/corrections/incarceration/default.htm
 | --- |:-----------:| :----------------:| :-------:|
 |  1  | Airway Heights Corrections Center | AHCC | prisons/ahcc.htm |
 
+
 ###Posts
 
-|  id  |    subject   |    content        |  userId  |  siteId |
+|  id  |    subject   |    content        |  authorId  |  siteId |
 | ---- |:------------:| :----------------:| :-------:| :------:|
 |  1   | test subject | 	test content  |    4	 |		3  |
 
@@ -50,7 +51,7 @@ This is scraped from http://www.doc.wa.gov/corrections/incarceration/default.htm
 | ---- |:------------:| :-------:| :-------:|
 |  1   | test content |    4	 |		2	|
 
-###Topics
+###Topics*
 
 |     id |  name     |
 | :----: |:---------:|
@@ -70,6 +71,9 @@ JOIN TABLES
 | :----: |:---------:|
 |    1   |  category |
 
+
+* These tables were prepopulated with data using code in their respective controller files that was run once, then commented out. The sites table never changes, however the topics table is added to each time a user creates a post with topics.
+
 #ROUTES: 
 
 ##Controllers:
@@ -82,9 +86,10 @@ JOIN TABLES
 ###Posts
 #### - Post / (will create and post new post)
 #### - Get /new (will get new post page)
-#### - Get / (will get all posts)
+#### - Get / (will get all posts or a list of posts based on the search query)
 #### - Get /:id (will display one post)
-[there should be one more route that gets all posts with a specific site id AND topic]
+#### - Delete /:id (deletes post)
+#### - Edit /:id (edit form for post)
 
 ###Comments
 #### - Post / (will create and post new post)

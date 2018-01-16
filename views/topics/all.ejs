@@ -1,10 +1,8 @@
 <h2>All Available Tags</h2>
-<% if(topics.length>0) { %>
-	<% topics.forEach(function(t) { %>
-		<div>
-			<%= t.name %>
-		</div>
-	<% }); %>
-<% } else { %>
-	<h3>No Topics Yet!</h3>
-<% } %>
+
+
+<% topics.forEach(function(t) { %>
+	<div>
+		<a href="/posts?siteId=1&topicId=<%=t.id%>"><%= t.name %></a>
+	</div>
+<% }); %>
