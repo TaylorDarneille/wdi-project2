@@ -128,7 +128,11 @@ router.get('/edit/:id', function(req, res){
 	db.post.findOne({
 		where: {id: req.params.id}
 	}).then(function(post){
-		res.render('posts/edit.ejs', { post: post });
+		if(req.user.id == post.authorId){
+			res.render('posts/edit.ejs', { post: post });
+		} else {
+			res.send("You can edit posts that other users wrote.");
+		}
 	});
 	// TODO: allow user to edit topics as well
 });
