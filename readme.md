@@ -18,7 +18,7 @@
 - sequelize
 - [POSSIBLE] express-mailer
 
-#User Stories
+# User Stories
 
 #### Phil's daughter recently moved to the Mission Creek Corrections Center for Women and on their last visit, mentioned that some of the girls in her quad go to coding classes. She wants to join but is shy and doesn't feel comfortable asking the CO's about it. Phil can't find any helpful information on MCCCW's website so he turns to this forum.
 
