@@ -30,6 +30,7 @@ app.get('/privacy', function(req, res){
 	res.render('privacy.ejs', );
 });
 
+//HOME ROUTE
 app.get('/', function(req, res){
 	res.render('auth/login.ejs', );
 });

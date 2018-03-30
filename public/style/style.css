@@ -1,8 +1,28 @@
+html {
+	height: 100vh;
+}
 body {
 	background-image: url("https://s-media-cache-ak0.pinimg.com/564x/94/9a/9b/949a9bab8b49bcfd60ec7802feaeb183.jpg");
-    background-size: cover;
+  background-size: cover;
 }
-/*.post {
+.widget {
+	color: white;
+	background-color: #222;
+  border-color: #080808;
+}
+.large {
+	padding: 30px;
+  width: 85%;
+  margin: 20px auto;
+}
+.auth {
+    padding: 20px;
+    width: 40%;
+}
+h2, h3 {
+	margin: 0 0 10px;
+}
+/*.article {
   background: white;
   border: solid black 10px;
   margin: 50px;

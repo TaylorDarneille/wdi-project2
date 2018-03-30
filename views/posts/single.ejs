@@ -1,14 +1,17 @@
-<h2><%= post.subject %></h2>
-<h3>Writen by <%= author.displayName %></h3>
-<h4><%=post.site.name%></h4>
-<p>
-	<%= post.content %>
-</p>
-<div>
-	<strong>Topics:</strong>
-	<% post.topics.forEach(function(t){ %>
-		<a href="/posts/?siteId=1&topicId=<%=t.id%>"><%= t.name %></a>,
-	<% }); %>
+
+<div class="post">
+	<h2><%= post.subject %></h2>
+	<h3>Writen by <%= author.displayName %></h3>
+	<h4><%=post.site.name%></h4>
+	<p>
+		<%= post.content %>
+	</p>
+	<div>
+		<strong>Topics:</strong>
+		<% post.topics.forEach(function(t){ %>
+			<a href="/posts/?siteId=1&topicId=<%=t.id%>"><%= t.name %></a>,
+		<% }); %>
+	</div>
 </div>
 
 <% if(currentUser) { %>
