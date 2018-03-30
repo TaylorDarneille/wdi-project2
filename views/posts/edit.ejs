@@ -1,12 +1,14 @@
-<h3>Edit This Post</h3>
+<section class="widget large">
+	<h3>Edit This Post</h3>
 
-<form action="/posts/<%=post.id%>" id="put-form">
-	
-  <label for="subject">Subject</label>
-  <input type="text" name="subject" id="updated-subject" value="<%= post.subject %>">
+	<form action="/posts/<%=post.id%>" id="put-form">
+		
+	  <label for="subject">Subject</label>
+	  <input type="text" name="subject" id="updated-subject" value="<%= post.subject %>">
 
-  <label for="content">Content</label>
-  <input type="text" name="content" id="updated-content" value="<%= post.content %>">
+	  <label for="content">Content</label>
+	  <input type="text" name="content" id="updated-content" value="<%= post.content %>">
 
-  <input type="submit" value="Update Post">
-</form>
+	  <input type="submit" value="Update Post">
+	</form>
+</section>
